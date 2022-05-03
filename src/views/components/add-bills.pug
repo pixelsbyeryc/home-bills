@@ -9,6 +9,7 @@
                 .add-bills-header-input
                     label.label(for="amount") Enter Amount
                     input.input.--huge(type="text", name="amount", placeholder="6,500", inputmode="numeric", required)
+                    input.input.--hidden(type="hidden", name="amountRaw", required)
 
                 button#closeModalButton.close-modal-button
                     include ../../assets/icons/icon--close.svg
@@ -26,17 +27,17 @@
                         label.label(for="category") Category
                         select.select(name="category", required)
                             option(value="") Select a category
-                            option(value="home") Home
-                            option(value="credit-card") Credit Card
-                            option(value="utility") Utility
-                            option(value="health") Health
-                            option(value="misc") Miscellaneous
+                            option(value="e83249bd3ba79932e16fb1fb5100dafade9954c2", data-slug="home") Home
+                            option(value="5e667e09540800fcbba5c0215f2d09aed1fa57df", data-slug="credit-card") Credit Card
+                            option(value="8884fd30d64e5cf97054c14e8a217a1fb0cd7e16", data-slug="utility") Utility
+                            option(value="834b34f16f451e00f268dd5c8c81d16e3c020275", data-slug="health") Health
+                            option(value="291d3e10d996b9590a718565f00bfbbd0ad02bef", data-slug="misc") Miscellaneous
                     .input-group
                         label.label(for="spender") Spender
                         select.select(name="spender", required)
                             option(value="") Select a spender
-                            option(value="familyMember1") Name 1
-                            option(value="familyMember2") Name 2
+                            option(value="cb53baa8968179ada062c523b181dbe4bb2c182d", data-slug="familyName1") Name 1
+                            option(value="00241e720ba6dffe26d6d127d17027cff10a0568", data-slug="familyName2") Name 2
             
             section.add-bills-actions
                 button#addSingleBill.submit.--ghost(type="submit")

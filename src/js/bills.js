@@ -31,6 +31,7 @@ function addBill(data) {
         // Grab all the data passed and add it to an Object
         const bill = {
             amount: data.amount,
+            amountRaw: parseInt(data.amountRaw),
             desc: data.desc,
             category: data.category,
             duedate: data.duedate,
@@ -269,6 +270,10 @@ function loadDataInDOM() {
     elementsDOM.forEach((element, index) => {
         txList.append(element);
     });
+
+     // Stores this month's bills in a const.
+    const thisMonthsBills = getThisMonthsBills(thisMonth, bills);
+    overview = calculateThisMonthsBills(thisMonthsBills);
 }
 
 /**
@@ -288,7 +293,7 @@ function createTxElement(data) {
     const wrapper = newElement({tag: 'section', classes: ['tx-wrapper']});
 
     // TX Category
-    const category = newElement({classes: ['tx-category', data.category ? '--' + data.category : '']});
+    const category = newElement({classes: ['tx-category', data.category ? '--' + data.category.slug : '']});
 
     // TX Block
     const block = newElement({tag: 'section', classes: ['tx-block']});

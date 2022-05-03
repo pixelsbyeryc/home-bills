@@ -4,6 +4,7 @@
 
 // Add local data into bills variable
 bills = getFromLocalStorage('bills', bills);
+overview = getFromLocalStorage('overview', overview);
 
 //////
 // Check if bills has anything
@@ -66,11 +67,18 @@ addBillsForm.addEventListener('submit', (e) => {
   // Prevent the default submit event
   e.preventDefault();
 
+  const categoryEl = document.querySelector('[name="category"]');
+  const categorySlug = categoryEl.options[categoryEl.selectedIndex].getAttribute('data-slug');
+
   // Add form values to `bill` Object
   const bill = {
     desc: (document.querySelector(['[name="description"]'])).value,
     amount: (document.querySelector(['[name="amount"]'])).value,
-    category: (document.querySelector(['[name="category"]'])).value,
+    amountRaw: (document.querySelector(['[name="amountRaw"]'])).value,
+    category: {
+      key: (document.querySelector(['[name="category"]'])).value,
+      slug: categorySlug
+    },
     duedate: (document.querySelector(['[name="duedate"]'])).value,
     spender: (document.querySelector(['[name="spender"]'])).value,
     
@@ -103,7 +111,7 @@ document.addEventListener('click', (e) => {
  * Hotkey Events
  *************************************************/
 
- const hotKeys = (e) => {
+const hotKeys = (e) => {
   let windowEvent = window.event ? window.event : e;
 
   if (windowEvent.keyCode === 78 && e.ctrlKey) {
@@ -122,3 +130,20 @@ document.addEventListener('click', (e) => {
 }
 
 document.onkeydown = hotKeys;
+
+
+function inputChanged(inputChanged, hiddenInput) {
+  const hidden = hiddenInput.value = inputChanged;
+
+  console.log(hidden);
+}
+
+document.querySelector('[name="amount"]').addEventListener('keyup', (e) => {
+  let inputValue = updateInputAmount(e.target.value);
+  inputChanged(inputValue, document.querySelector('input[name="amountRaw"]'));
+
+});
+
+const updateInputAmount = (input) => {
+  return +input.replace(/[^\de.-]/gi, "");
+}
